@@ -1,87 +1,125 @@
-# DBMS
-🎫 VANSHIT Support Ticket System
+# 🎫 VANSHIT Support Ticket System
+
 A comprehensive customer support ticket management system built with Java JDBC and MySQL.
 
-📋 Overview
-This system manages customer support tickets with features like:
+## 📋 Overview
 
-Ticket Creation & Management 📝
-Agent Assignment & Workload Management 👥
-Message Communication 💬
-SLA Monitoring ⏰
-Escalation Handling 🚨
-Customer Feedback ⭐
-Performance Analytics 📊
-🏗️ Database Schema
-Core Entities
-CUSTOMER 👤
-Customer information and contact details
-Unique email constraint
-Creation timestamp tracking
-AGENT 🛠️
-Support agent profiles
-Availability status
-Performance metrics tracking
-CATEGORY 📂
-Ticket categories (Technical, Billing, General)
-Category descriptions
-SLA associations
-TICKET 🎫
-Main ticket entity with priority levels
-Status tracking (open → in_progress → resolved → closed)
-Agent assignment and timestamps
-Full audit trail
-MESSAGE 💬
-Ticket communication history
-Customer and agent messages
-Chronological ordering
-Supporting Entities
-SLA ⏰
-Service Level Agreements per category
-Response and resolution time limits
-Premium/VIP/Standard tiers
-ESCALATION 🚨
-Ticket escalation tracking
-Escalation reasons and timestamps
-FEEDBACK ⭐
-Customer satisfaction ratings (1-5 scale)
-Comments and feedback tracking
-AGENT_METRICS 📊
-Performance tracking
-Resolution rates and handling times
-TICKET_HISTORY 📜
-Complete audit trail
-Status and priority change tracking
-🚀 Quick Start
-Prerequisites
-Java 8 or higher
-MySQL 5.7 or higher
-MySQL JDBC Driver
-Setup
-Create Database
+This system manages customer support tickets with features like:
+- **Ticket Creation & Management** 📝
+- **Agent Assignment & Workload Management** 👥
+- **Message Communication** 💬
+- **SLA Monitoring** ⏰
+- **Escalation Handling** 🚨
+- **Customer Feedback** ⭐
+- **Performance Analytics** 📊
+
+## 🏗️ Database Schema
+
+### Core Entities
+
+#### **CUSTOMER** 👤
+- Customer information and contact details
+- Unique email constraint
+- Creation timestamp tracking
+
+#### **AGENT** 🛠️
+- Support agent profiles
+- Availability status
+- Performance metrics tracking
+
+#### **CATEGORY** 📂
+- Ticket categories (Technical, Billing, General)
+- Category descriptions
+- SLA associations
+
+#### **TICKET** 🎫
+- Main ticket entity with priority levels
+- Status tracking (open → in_progress → resolved → closed)
+- Agent assignment and timestamps
+- Full audit trail
+
+#### **MESSAGE** 💬
+- Ticket communication history
+- Customer and agent messages
+- Chronological ordering
+
+### Supporting Entities
+
+#### **SLA** ⏰
+- Service Level Agreements per category
+- Response and resolution time limits
+- Premium/VIP/Standard tiers
+
+#### **ESCALATION** 🚨
+- Ticket escalation tracking
+- Escalation reasons and timestamps
+
+#### **FEEDBACK** ⭐
+- Customer satisfaction ratings (1-5 scale)
+- Comments and feedback tracking
+
+#### **AGENT_METRICS** 📊
+- Performance tracking
+- Resolution rates and handling times
+
+#### **TICKET_HISTORY** 📜
+- Complete audit trail
+- Status and priority change tracking
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Java 8 or higher
+- MySQL 5.7 or higher
+- MySQL JDBC Driver
+
+### Setup
+
+1. **Create Database**
+```sql
 CREATE DATABASE support_ticket_system;
-Run Schema
+```
+
+2. **Run Schema**
+```bash
 mysql -u root -p support_ticket_system < support_ticket_schema.sql
-Build Project
+```
+
+3. **Build Project**
+```bash
 chmod +x build.sh
 ./build.sh
-Run Demo
-java -cp vanshit-support-ticket.jar:mysql-connector-java-8.0.33.jar SupportTicketDemo
-🔧 Configuration
-Update database connection in SupportTicketDB.java:
+```
 
+4. **Run Demo**
+```bash
+java -cp vanshit-support-ticket.jar:mysql-connector-java-8.0.33.jar SupportTicketDemo
+```
+
+## 🔧 Configuration
+
+Update database connection in `SupportTicketDB.java`:
+```java
 private static final String DB_URL = "jdbc:mysql://localhost:3306/support_ticket_system";
 private static final String USER = "root";
 private static final String PASS = "your_password";
-📚 API Reference
-Core Functions
-Customer Management
+```
+
+## 📚 API Reference
+
+### Core Functions
+
+#### **Customer Management**
+```java
 // Create customer
 boolean createCustomer(String name, String phoneNumber, String email)
 
 // Get customer feedback summary
 List<Map<String, Object>> getCustomerFeedbackSummary()
-Agent Management
+```
+
+#### **Agent Management**
+```java
 // Create agent
 boolean createAgent(String name, String email)
 
@@ -93,7 +131,10 @@ List<Map<String, Object>> getAgentWorkload()
 
 // Get agent performance metrics
 List<Map<String, Object>> getAgentPerformanceMetrics()
-Ticket Management
+```
+
+#### **Ticket Management**
+```java
 // Create ticket
 boolean createTicket(int customerId, int categoryId, String title, String description, String priority)
 
@@ -105,13 +146,19 @@ boolean updateTicketStatus(int ticketId, String status)
 
 // Get tickets by status
 List<Map<String, Object>> getTicketsByStatus(String status)
-Communication
+```
+
+#### **Communication**
+```java
 // Add message to ticket
 boolean addMessage(int ticketId, String senderType, int senderId, String content)
 
 // Get ticket messages
 List<Map<String, Object>> getTicketMessages(int ticketId)
-SLA & Escalation
+```
+
+#### **SLA & Escalation**
+```java
 // Create SLA
 boolean createSLA(int categoryId, int maxResponseTime, int maxResolutionTime, String slaName)
 
@@ -123,69 +170,91 @@ List<Map<String, Object>> getEscalatedTickets()
 
 // Get SLA violations
 List<Map<String, Object>> getSLAViolations()
-Feedback
+```
+
+#### **Feedback**
+```java
 // Submit feedback
 boolean submitFeedback(int ticketId, int customerId, int agentId, int rating, String comments)
-🎯 Business Logic
-Priority Levels
-low - General inquiries
-medium - Standard issues
-high - Urgent problems
-urgent - Critical issues
-Ticket Status Flow
-open - New ticket created
-in_progress - Agent working on it
-resolved - Issue resolved
-closed - Ticket closed
-SLA Types
-Standard - Regular support
-Premium - Priority support
-VIP - High-priority support
-Agent Assignment Logic
-Agents assigned to specific categories
-Workload balancing
-Availability checking
-Performance-based assignment
-📊 Key Features
-1. Multi-Category Support 📂
-Technical Support
-Billing Issues
-General Inquiries
-Custom categories
-2. Intelligent Agent Assignment 🎯
-Category-based assignment
-Workload balancing
-Performance tracking
-Availability management
-3. SLA Monitoring ⏰
-Response time tracking
-Resolution time monitoring
-Automatic violation detection
-Escalation triggers
-4. Communication Tracking 💬
-Full message history
-Customer-agent conversations
-Timestamp tracking
-Message threading
-5. Performance Analytics 📈
-Agent performance metrics
-Customer satisfaction scores
-Resolution time analysis
-Workload distribution
-6. Audit Trail 📜
-Complete ticket history
-Status change tracking
-Priority change logging
-Escalation history
-🔍 Sample Queries
-Get Open Tickets
+```
+
+## 🎯 Business Logic
+
+### **Priority Levels**
+- `low` - General inquiries
+- `medium` - Standard issues
+- `high` - Urgent problems
+- `urgent` - Critical issues
+
+### **Ticket Status Flow**
+1. `open` - New ticket created
+2. `in_progress` - Agent working on it
+3. `resolved` - Issue resolved
+4. `closed` - Ticket closed
+
+### **SLA Types**
+- `Standard` - Regular support
+- `Premium` - Priority support
+- `VIP` - High-priority support
+
+### **Agent Assignment Logic**
+- Agents assigned to specific categories
+- Workload balancing
+- Availability checking
+- Performance-based assignment
+
+## 📊 Key Features
+
+### **1. Multi-Category Support** 📂
+- Technical Support
+- Billing Issues
+- General Inquiries
+- Custom categories
+
+### **2. Intelligent Agent Assignment** 🎯
+- Category-based assignment
+- Workload balancing
+- Performance tracking
+- Availability management
+
+### **3. SLA Monitoring** ⏰
+- Response time tracking
+- Resolution time monitoring
+- Automatic violation detection
+- Escalation triggers
+
+### **4. Communication Tracking** 💬
+- Full message history
+- Customer-agent conversations
+- Timestamp tracking
+- Message threading
+
+### **5. Performance Analytics** 📈
+- Agent performance metrics
+- Customer satisfaction scores
+- Resolution time analysis
+- Workload distribution
+
+### **6. Audit Trail** 📜
+- Complete ticket history
+- Status change tracking
+- Priority change logging
+- Escalation history
+
+## 🔍 Sample Queries
+
+### **Get Open Tickets**
+```sql
 SELECT t.*, c.name as customer_name, cat.name as category_name
 FROM TICKET t
 JOIN CUSTOMER c ON t.customer_id = c.customer_id
 JOIN CATEGORY cat ON t.category_id = cat.category_id
 WHERE t.status = 'open'
 ORDER BY t.priority DESC, t.created_at ASC;
-Agent Workload
+```
+
+### **Agent Workload**
+```sql
 SELECT a.name, COUNT(t.ticket_id) as active_tickets
 FROM AGENT a
 LEFT JOIN TICKET t ON a.agent_id = t.agent_id 
@@ -193,7 +262,10 @@ LEFT JOIN TICKET t ON a.agent_id = t.agent_id
 WHERE a.is_available = TRUE
 GROUP BY a.agent_id, a.name
 ORDER BY active_tickets DESC;
-SLA Violations
+```
+
+### **SLA Violations**
+```sql
 SELECT t.ticket_id, t.title, 
        TIMESTAMPDIFF(HOUR, t.created_at, NOW()) as hours_overdue
 FROM TICKET t
@@ -201,23 +273,31 @@ JOIN CATEGORY c ON t.category_id = c.category_id
 JOIN SLA s ON c.category_id = s.category_id
 WHERE t.status IN ('open', 'in_progress')
   AND TIMESTAMPDIFF(HOUR, t.created_at, NOW()) > s.max_response_time;
-🛠️ Technical Details
-Database Design
-Normalization: 3NF compliance
-Indexing: Optimized for common queries
-Constraints: Foreign keys and check constraints
-Triggers: Automatic timestamp updates
-Performance Optimizations
-Strategic indexing on frequently queried columns
-Composite indexes for multi-column queries
-Efficient joins for complex queries
-Connection pooling ready
-Security Features
-Parameterized queries (SQL injection prevention)
-Input validation
-Error handling
-Connection management
-📁 Project Structure
+```
+
+## 🛠️ Technical Details
+
+### **Database Design**
+- **Normalization**: 3NF compliance
+- **Indexing**: Optimized for common queries
+- **Constraints**: Foreign keys and check constraints
+- **Triggers**: Automatic timestamp updates
+
+### **Performance Optimizations**
+- Strategic indexing on frequently queried columns
+- Composite indexes for multi-column queries
+- Efficient joins for complex queries
+- Connection pooling ready
+
+### **Security Features**
+- Parameterized queries (SQL injection prevention)
+- Input validation
+- Error handling
+- Connection management
+
+## 📁 Project Structure
+
+```
 VANSHIT/
 ├── SupportTicketDB.java      # Main JDBC implementation
 ├── SupportTicketDemo.java    # Demo application
@@ -226,36 +306,44 @@ VANSHIT/
 ├── manifest.txt              # JAR manifest
 ├── README.md                 # This file
 └── vanshit-support-ticket.jar # Compiled JAR
-🎉 Demo Features
+```
+
+## 🎉 Demo Features
+
 The demo showcases:
+1. **Schema Creation** - Database setup
+2. **Sample Data** - Test data insertion
+3. **Core Functions** - All CRUD operations
+4. **Query Functions** - Analytics and reporting
+5. **Error Handling** - Robust error management
 
-Schema Creation - Database setup
-Sample Data - Test data insertion
-Core Functions - All CRUD operations
-Query Functions - Analytics and reporting
-Error Handling - Robust error management
-🔧 Troubleshooting
-Common Issues
-Database Connection Failed
+## 🔧 Troubleshooting
 
-Check MySQL service is running
-Verify credentials in SupportTicketDB.java
-Ensure database exists
-Compilation Errors
+### **Common Issues**
 
-Ensure Java 8+ is installed
-Check MySQL JDBC driver is present
-Verify all source files are in directory
-Runtime Errors
+1. **Database Connection Failed**
+   - Check MySQL service is running
+   - Verify credentials in `SupportTicketDB.java`
+   - Ensure database exists
 
-Check database schema is created
-Verify sample data is inserted
-Review error messages for specific issues
-📞 Support
+2. **Compilation Errors**
+   - Ensure Java 8+ is installed
+   - Check MySQL JDBC driver is present
+   - Verify all source files are in directory
+
+3. **Runtime Errors**
+   - Check database schema is created
+   - Verify sample data is inserted
+   - Review error messages for specific issues
+
+## 📞 Support
+
 For issues or questions:
+1. Check the troubleshooting section
+2. Review error messages
+3. Verify database setup
+4. Test with demo application
 
-Check the troubleshooting section
-Review error messages
-Verify database setup
-Test with demo application
-VANSHIT Support Ticket System - Professional-grade customer support management! 🎫✨
+---
+
+**VANSHIT Support Ticket System** - Professional-grade customer support management! 🎫✨ 
