@@ -1,4 +1,4 @@
-# 🎫 VANSHIT Support Ticket System
+# 🎫 VANSHIT'S Support Ticket System
 
 A comprehensive customer support ticket management system built with Java JDBC and MySQL.
 
@@ -346,4 +346,4 @@ For issues or questions:
 
 ---
 
-**VANSHIT Support Ticket System** - Professional-grade customer support management! 🎫✨ 
+**VANSHIT'S Support Ticket System** - Professional-grade customer support management! 🎫✨ 
